@@ -62,6 +62,7 @@ await githubSponsorsToMarkdown({
 export interface GithubSponsorsToMarkdownOptions {
 	login?: string;
 	tiers?: Record<string, SponsorshipTier>;
+	verbose?: boolean;
 }
 
 export const defaultOptions = {
@@ -120,6 +121,22 @@ export interface SponsorshipTier {
 	size: number;
 }
 ```
+
+#### `verbose`
+
+Whether to `console.log` while executing.
+Useful for debugging unexpected results.
+
+```ts
+githubSponsorsToMarkdown({
+	verbose: true,
+});
+```
+
+This will log:
+
+- The `login` option
+- The response from querying GitHub's GraphQL API
 
 ## Development
 

@@ -11,9 +11,10 @@ import {
 export async function githubSponsorsToMarkdown({
 	login,
 	tiers = defaultOptions.tiers,
+	verbose,
 }: GithubSponsorsToMarkdownOptions) {
-	const fieldName = login ? `user(login: "${login}")` : `viewer`;
-	const sponsorshipNodes = await getSponsorshipsAsMaintainer(fieldName);
+	const logger = verbose ? console.log.bind(console) : undefined;
+	const sponsorshipNodes = await getSponsorshipsAsMaintainer({ logger, login });
 
 	const sponsorshipsSorted = sponsorshipNodes
 		.filter((node) => !node.isOneTimePayment)
