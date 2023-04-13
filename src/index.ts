@@ -20,6 +20,10 @@ export async function githubSponsorsToMarkdown({
 		.filter((node) => !node.isOneTimePayment)
 		.sort((a, b) => b.sponsorEntity.login.localeCompare(a.sponsorEntity.login));
 
+	logger?.(
+		"Sponsorships, sorted:",
+		JSON.stringify(sponsorshipsSorted, null, 4)
+	);
 	const tierGroups = groupSponsorships(sponsorshipsSorted, tiers);
 	const width = `${Math.floor(100 / Object.keys(tierGroups).length)}%`;
 
