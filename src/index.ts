@@ -1,4 +1,5 @@
 import { graphql } from "@octokit/graphql";
+
 import {
 	defaultOptions,
 	GithubSponsorsToMarkdownOptions,

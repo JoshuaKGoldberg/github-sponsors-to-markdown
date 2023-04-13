@@ -59,11 +59,11 @@ await githubSponsorsToMarkdown({
 ```
 
 ```ts
-interface GithubSponsorsToMarkdownOptions {
+export interface GithubSponsorsToMarkdownOptions {
 	tiers?: Record<string, SponsorshipTier>;
 }
 
-const defaultOptions = {
+export const defaultOptions = {
 	tiers: {
 		Gold: {
 			minimum: 25,
@@ -102,7 +102,7 @@ githubSponsorsToMarkdown({
 ```
 
 ```ts
-interface SponsorshipTier {
+export interface SponsorshipTier {
 	label?: string;
 	minimum: number;
 	size: number;
