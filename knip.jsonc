@@ -2,8 +2,5 @@
 	"$schema": "https://unpkg.com/knip@next/schema.json",
 	"entry": "src/index.ts!",
 	"ignoreDependencies": ["all-contributors-cli"],
-	"project": "src/**/*.ts!",
-	"rules": {
-		"types": "off"
-	}
+	"project": "src/**/*.ts!"
 }
