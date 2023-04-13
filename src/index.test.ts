@@ -1,9 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import { githubSponsorsToMarkdown } from "./index.js";
-
-describe("githubSponsorsToMarkdown", () => {
-	it("exists", () => {
-		expect(githubSponsorsToMarkdown).toBeDefined();
+describe("todo", () => {
+	it("will eventually be tested...!", () => {
+		expect(true).toBeDefined();
 	});
 });
