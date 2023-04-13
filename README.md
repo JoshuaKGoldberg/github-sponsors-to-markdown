@@ -38,6 +38,14 @@ import { githubSponsorsToMarkdown } from "github-sponsors-to-markdown";
 console.log(await githubSponsorsToMarkdown());
 ```
 
+Note that you'll need a `GH_TOKEN` environment variable.
+For example:
+
+```shell
+gh auth refresh --scopes read:user # Only necessary your first time
+GH_TOKEN=$(gh auth token) node build.js
+```
+
 > See this in action on [github.com/JoshuaKGoldberg](https://github.com/JoshuaKGoldberg#thanks-to-my-sponsors)! ⚡️
 
 ## Development
