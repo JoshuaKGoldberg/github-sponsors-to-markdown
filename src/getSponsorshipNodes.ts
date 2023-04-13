@@ -1,5 +1,7 @@
 import { graphql } from "@octokit/graphql";
 
+import { Logger } from "./types.js";
+
 if (!process.env.GH_TOKEN) {
 	throw new Error(`Please provide a process.env.GH_TOKEN.`);
 }
@@ -42,7 +44,17 @@ export interface SponsorshipNode {
 	};
 }
 
-export async function getSponsorshipsAsMaintainer(fieldName: string) {
+interface GetSponsorshipsAsMaintainerOptions {
+	logger: Logger | undefined;
+	login: string | undefined;
+}
+
+export async function getSponsorshipsAsMaintainer({
+	logger,
+	login,
+}: GetSponsorshipsAsMaintainerOptions) {
+	logger?.("Querying sponsorships for:", login);
+	const fieldName = login ? `user(login: "${login}")` : `viewer`;
 	const result = await graphqlWithAuth<GraphQLResult>(`
 	    {
 	        ${fieldName} {
@@ -70,6 +82,8 @@ export async function getSponsorshipsAsMaintainer(fieldName: string) {
             }
         }
 	`);
+
+	logger?.("GraphQL response:", result);
 
 	const { sponsorshipsAsMaintainer } =
 		"user" in result ? result.user : result.viewer;

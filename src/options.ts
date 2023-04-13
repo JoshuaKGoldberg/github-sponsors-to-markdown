@@ -7,6 +7,7 @@ export interface SponsorshipTier {
 export interface GithubSponsorsToMarkdownOptions {
 	login?: string;
 	tiers?: Record<string, SponsorshipTier>;
+	verbose?: boolean;
 }
 
 export const defaultOptions = {
