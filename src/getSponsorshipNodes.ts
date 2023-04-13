@@ -83,7 +83,7 @@ export async function getSponsorshipsAsMaintainer({
         }
 	`);
 
-	logger?.("GraphQL response:", result);
+	logger?.("GraphQL response:", JSON.stringify(result, null, 4));
 
 	const { sponsorshipsAsMaintainer } =
 		"user" in result ? result.user : result.viewer;
