@@ -137,6 +137,7 @@ This will log:
 
 - The `login` option
 - The response from querying GitHub's GraphQL API
+- Collected tiers from sponsorship groupings
 
 ## Development
 

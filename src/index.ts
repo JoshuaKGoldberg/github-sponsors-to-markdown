@@ -54,42 +54,44 @@ export async function githubSponsorsToMarkdown({
 		`\t</tbody>`,
 		`</table>`,
 	].join("\n");
-}
 
-function createLinkForSponsorship({
-	sponsorship,
-	tier,
-}: SponsorshipDescription) {
-	const { login, name } = sponsorship.sponsorEntity;
-	const url = `https://github.com/${login}`;
+	function createLinkForSponsorship({
+		sponsorship,
+		tier,
+	}: SponsorshipDescription) {
+		const { login, name } = sponsorship.sponsorEntity;
+		const url = `https://github.com/${login}`;
 
-	return [
-		`\t\t\t\t<a href="${url}">`,
-		`\t\t\t\t\t<img alt="${name}" src="${url}.png?size=${tier.size}" />`,
-		`\t\t\t\t</a>`,
-	].join("\n");
-}
-
-interface SponsorshipDescription {
-	sponsorship: SponsorshipNode;
-	tier: SponsorshipTier;
-}
-
-function groupSponsorships(
-	sponsorships: SponsorshipNode[],
-	tiers: Record<string, SponsorshipTier>
-) {
-	const tierGroups: Record<string, SponsorshipDescription[]> = {};
-	const tierEntries = Object.entries(tiers);
-
-	for (const sponsorship of sponsorships) {
-		for (const [tierName, tier] of tierEntries) {
-			if (sponsorship.tier.monthlyPriceInDollars >= tier.minimum) {
-				(tierGroups[tierName] ??= []).push({ sponsorship, tier });
-				break;
-			}
-		}
+		return [
+			`\t\t\t\t<a href="${url}">`,
+			`\t\t\t\t\t<img alt="${name}" src="${url}.png?size=${tier.size}" />`,
+			`\t\t\t\t</a>`,
+		].join("\n");
 	}
 
-	return tierGroups;
+	interface SponsorshipDescription {
+		sponsorship: SponsorshipNode;
+		tier: SponsorshipTier;
+	}
+
+	function groupSponsorships(
+		sponsorships: SponsorshipNode[],
+		tiers: Record<string, SponsorshipTier>
+	) {
+		const tierGroups: Record<string, SponsorshipDescription[]> = {};
+		const tierEntries = Object.entries(tiers);
+
+		logger?.("Collected tier entries:", JSON.stringify(tierEntries, null, 4));
+
+		for (const sponsorship of sponsorships) {
+			for (const [tierName, tier] of tierEntries) {
+				if (sponsorship.tier.monthlyPriceInDollars >= tier.minimum) {
+					(tierGroups[tierName] ??= []).push({ sponsorship, tier });
+					break;
+				}
+			}
+		}
+
+		return tierGroups;
+	}
 }
