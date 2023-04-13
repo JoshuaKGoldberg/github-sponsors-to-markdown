@@ -81,6 +81,17 @@ export const defaultOptions = {
 } satisfies GithubSponsorsToMarkdownOptions;
 ```
 
+#### `login`
+
+GitHub organization or username to query sponsorships for.
+If not provided, defaults to querying [`viewer`](https://docs.github.com/en/graphql/reference/queries#viewer).
+
+```ts
+githubSponsorsToMarkdown({
+	login: "JoshuaKGoldberg",
+});
+```
+
 #### `tier`
 
 Custom tiers to render instead of the defaults.
