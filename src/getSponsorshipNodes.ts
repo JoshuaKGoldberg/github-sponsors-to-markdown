@@ -10,11 +10,21 @@ const graphqlWithAuth = graphql.defaults({
 	},
 });
 
+type GraphQLResult = GraphQLUserResult | GraphQLViewerResult;
+
+interface GraphQLUserResult {
+	user: ResultFields;
+}
+
+interface GraphQLViewerResult {
+	viewer: ResultFields;
+}
+
 interface ResultFields {
 	sponsorshipsAsMaintainer: SponsorshipsAsMaintainer;
 }
 
-export interface SponsorshipsAsMaintainer {
+interface SponsorshipsAsMaintainer {
 	edges: {
 		node: SponsorshipNode;
 	}[];
@@ -31,16 +41,6 @@ export interface SponsorshipNode {
 		monthlyPriceInDollars: number;
 	};
 }
-
-interface GraphQLUserResult {
-	user: ResultFields;
-}
-
-interface GraphQLViewerResult {
-	viewer: ResultFields;
-}
-
-type GraphQLResult = GraphQLUserResult | GraphQLViewerResult;
 
 export async function getSponsorshipsAsMaintainer(fieldName: string) {
 	const result = await graphqlWithAuth<GraphQLResult>(`
@@ -74,5 +74,5 @@ export async function getSponsorshipsAsMaintainer(fieldName: string) {
 	const { sponsorshipsAsMaintainer } =
 		"user" in result ? result.user : result.viewer;
 
-	return sponsorshipsAsMaintainer;
+	return sponsorshipsAsMaintainer.edges.map((edge) => edge.node);
 }

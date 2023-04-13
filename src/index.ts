@@ -1,7 +1,7 @@
 import {
 	getSponsorshipsAsMaintainer,
 	SponsorshipNode,
-} from "./getSponsorshipsAsMaintainer.js";
+} from "./getSponsorshipNodes.js";
 import {
 	defaultOptions,
 	GithubSponsorsToMarkdownOptions,
@@ -13,10 +13,9 @@ export async function githubSponsorsToMarkdown({
 	tiers = defaultOptions.tiers,
 }: GithubSponsorsToMarkdownOptions) {
 	const fieldName = login ? `user(login: "${login}")` : `viewer`;
-	const sponsorshipsAsMaintainer = await getSponsorshipsAsMaintainer(fieldName);
+	const sponsorshipNodes = await getSponsorshipsAsMaintainer(fieldName);
 
-	const sponsorshipsSorted = sponsorshipsAsMaintainer.edges
-		.map((edge) => edge.node)
+	const sponsorshipsSorted = sponsorshipNodes
 		.filter((node) => !node.isOneTimePayment)
 		.sort((a, b) => b.sponsorEntity.login.localeCompare(a.sponsorEntity.login));
 
