@@ -48,6 +48,67 @@ GH_TOKEN=$(gh auth token) node build.js
 
 > See this in action on [github.com/JoshuaKGoldberg](https://github.com/JoshuaKGoldberg#thanks-to-my-sponsors)! ⚡️
 
+### Options
+
+`githubSponsorsToMarkdown` can be optionally be provided an options object.
+
+```ts
+await githubSponsorsToMarkdown({
+	/* ... */
+});
+```
+
+```ts
+interface GithubSponsorsToMarkdownOptions {
+	tiers?: Record<string, SponsorshipTier>;
+}
+
+const defaultOptions = {
+	tiers: {
+		Gold: {
+			minimum: 25,
+			size: 100,
+		},
+		Silver: {
+			minimum: 10,
+			size: 50,
+		},
+		Bronze: {
+			minimum: 5,
+			size: 25,
+		},
+	},
+} satisfies GithubSponsorsToMarkdownOptions;
+```
+
+#### `tier`
+
+Custom tiers to render instead of the defaults.
+
+```ts
+githubSponsorsToMarkdown({
+	tiers: {
+		Awesome: {
+			label: "Best People Ever!",
+			minimum: 100,
+			size: 100,
+		},
+		"Also Awesome": {
+			minimum: 10,
+			size: 50,
+		},
+	},
+});
+```
+
+```ts
+interface SponsorshipTier {
+	label?: string;
+	minimum: number;
+	size: number;
+}
+```
+
 ## Development
 
 See [`.github/CONTRIBUTING.md`](./.github/CONTRIBUTING.md), then [`.github/DEVELOPMENT.md`](./.github/DEVELOPMENT.md).

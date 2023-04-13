@@ -1,4 +1,9 @@
 import { graphql } from "@octokit/graphql";
+import {
+	defaultOptions,
+	GithubSponsorsToMarkdownOptions,
+	SponsorshipTier,
+} from "./options.js";
 
 if (!process.env.GH_TOKEN) {
 	throw new Error(`Please provide a process.env.GH_TOKEN.`);
@@ -30,7 +35,9 @@ interface SponsorshipNode {
 	};
 }
 
-export async function githubSponsorsToMarkdown() {
+export async function githubSponsorsToMarkdown({
+	tiers = defaultOptions.tiers,
+}: GithubSponsorsToMarkdownOptions) {
 	const { viewer } = await graphqlWithAuth<{ viewer: ViewerResult }>(`
 	    {
 	        viewer {
@@ -64,23 +71,33 @@ export async function githubSponsorsToMarkdown() {
 		.filter((node) => !node.isOneTimePayment)
 		.sort((a, b) => b.sponsorEntity.login.localeCompare(a.sponsorEntity.login));
 
-	const tiers = groupByTier(sponsorshipsSorted);
+	const tierGroups = groupSponsorships(sponsorshipsSorted, tiers);
+	const width = `${Math.floor(100 / Object.keys(tierGroups).length)}%`;
+
+	const tierGroupsSorted = Object.fromEntries(
+		Object.entries(tierGroups).sort(
+			([a], [b]) => tiers[b].minimum - tiers[a].minimum
+		)
+	);
 
 	return [
 		`<table width="100%">`,
 		`\t<thead>`,
 		`\t\t<tr>`,
-		...Object.keys(tiers).map(
-			(tier) => `\t\t\t<th width="33%">${tier} Sponsors</th>`
+		...Object.keys(tierGroupsSorted).map(
+			(tier) =>
+				`\t\t\t<th width="${width}">${
+					tiers[tier].label ?? `${tier} Sponsors`
+				}</th>`
 		),
 		`\t\t</tr>`,
 		`\t</thead>`,
 		`\t<tbody>`,
 		`\t\t<tr align="center">`,
-		...Object.values(tiers).map((sponsorships) =>
+		...Object.values(tierGroupsSorted).map((descriptions) =>
 			[
 				`\t\t\t<td >`,
-				...sponsorships.map(createLinkForSponsorship),
+				...descriptions.map(createLinkForSponsorship),
 				`\t\t\t</td>`,
 			].join("\n")
 		),
@@ -90,36 +107,40 @@ export async function githubSponsorsToMarkdown() {
 	].join("\n");
 }
 
-function createLinkForSponsorship(sponsorship: SponsorshipNode) {
+function createLinkForSponsorship({
+	sponsorship,
+	tier,
+}: SponsorshipDescription) {
 	const { login, name } = sponsorship.sponsorEntity;
 	const url = `https://github.com/${login}`;
-	const { monthlyPriceInDollars } = sponsorship.tier;
-	const size =
-		monthlyPriceInDollars >= 25 ? 100 : monthlyPriceInDollars >= 10 ? 50 : 25;
 
 	return [
 		`\t\t\t\t<a href="${url}">`,
-		`\t\t\t\t\t<img alt="${name}" src="${url}.png?size=${size}" />`,
+		`\t\t\t\t\t<img alt="${name}" src="${url}.png?size=${tier.size}" />`,
 		`\t\t\t\t</a>`,
 	].join("\n");
 }
 
-function groupByTier(sponsorships: SponsorshipNode[]) {
-	const tiers = {
-		Gold: [] as SponsorshipNode[],
-		Silver: [] as SponsorshipNode[],
-		Bronze: [] as SponsorshipNode[],
-	};
+interface SponsorshipDescription {
+	sponsorship: SponsorshipNode;
+	tier: SponsorshipTier;
+}
+
+function groupSponsorships(
+	sponsorships: SponsorshipNode[],
+	tiers: Record<string, SponsorshipTier>
+) {
+	const tierGroups: Record<string, SponsorshipDescription[]> = {};
+	const tierEntries = Object.entries(tiers);
 
 	for (const sponsorship of sponsorships) {
-		if (sponsorship.tier.monthlyPriceInDollars >= 25) {
-			tiers.Gold.push(sponsorship);
-		} else if (sponsorship.tier.monthlyPriceInDollars >= 10) {
-			tiers.Silver.push(sponsorship);
-		} else {
-			tiers.Bronze.push(sponsorship);
+		for (const [tierName, tier] of tierEntries) {
+			if (sponsorship.tier.monthlyPriceInDollars >= tier.minimum) {
+				(tierGroups[tierName] ??= []).push({ sponsorship, tier });
+				break;
+			}
 		}
 	}
 
-	return tiers;
+	return tierGroups;
 }
