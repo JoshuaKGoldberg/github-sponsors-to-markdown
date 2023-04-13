@@ -60,6 +60,7 @@ await githubSponsorsToMarkdown({
 
 ```ts
 export interface GithubSponsorsToMarkdownOptions {
+	login?: string;
 	tiers?: Record<string, SponsorshipTier>;
 }
 
@@ -79,6 +80,17 @@ export const defaultOptions = {
 		},
 	},
 } satisfies GithubSponsorsToMarkdownOptions;
+```
+
+#### `login`
+
+GitHub organization or username to query sponsorships for.
+If not provided, defaults to querying [`viewer`](https://docs.github.com/en/graphql/reference/queries#viewer).
+
+```ts
+githubSponsorsToMarkdown({
+	login: "JoshuaKGoldberg",
+});
 ```
 
 #### `tier`

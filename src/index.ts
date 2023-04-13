@@ -1,74 +1,21 @@
-import { graphql } from "@octokit/graphql";
-
+import {
+	getSponsorshipsAsMaintainer,
+	SponsorshipNode,
+} from "./getSponsorshipNodes.js";
 import {
 	defaultOptions,
 	GithubSponsorsToMarkdownOptions,
 	SponsorshipTier,
 } from "./options.js";
 
-if (!process.env.GH_TOKEN) {
-	throw new Error(`Please provide a process.env.GH_TOKEN.`);
-}
-
-const graphqlWithAuth = graphql.defaults({
-	headers: {
-		authorization: `token ${process.env.GH_TOKEN}`,
-	},
-});
-
-interface ViewerResult {
-	sponsorshipsAsMaintainer: {
-		edges: {
-			node: SponsorshipNode;
-		}[];
-	};
-}
-
-interface SponsorshipNode {
-	isOneTimePayment: boolean;
-	sponsorEntity: {
-		login: string;
-		name: string;
-	};
-	tier: {
-		id: string;
-		monthlyPriceInDollars: number;
-	};
-}
-
 export async function githubSponsorsToMarkdown({
+	login,
 	tiers = defaultOptions.tiers,
 }: GithubSponsorsToMarkdownOptions) {
-	const { viewer } = await graphqlWithAuth<{ viewer: ViewerResult }>(`
-	    {
-	        viewer {
-	            sponsorshipsAsMaintainer(activeOnly: true, first: 100) {
-                    edges {
-                        node {
-                            sponsorEntity {
-                                ... on Organization {
-                                    login
-                                    name
-                                }
-                                ... on User {
-                                    login
-                                    name
-                                }
-                            }
-                            isOneTimePayment
-                            tier {
-                                id
-                                monthlyPriceInDollars
-                            }
-                        }
-                    }
-                }
-            }
-        }
-	`);
+	const fieldName = login ? `user(login: "${login}")` : `viewer`;
+	const sponsorshipNodes = await getSponsorshipsAsMaintainer(fieldName);
 
-	const sponsorshipsSorted = viewer.sponsorshipsAsMaintainer.edges
-		.map((edge) => edge.node)
+	const sponsorshipsSorted = sponsorshipNodes
 		.filter((node) => !node.isOneTimePayment)
 		.sort((a, b) => b.sponsorEntity.login.localeCompare(a.sponsorEntity.login));
 
