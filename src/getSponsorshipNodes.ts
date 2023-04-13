@@ -44,7 +44,7 @@ export interface SponsorshipNode {
 	};
 }
 
-export interface GetSponsorshipsAsMaintainerOptions {
+interface GetSponsorshipsAsMaintainerOptions {
 	logger: Logger | undefined;
 	login: string | undefined;
 }
