@@ -71,7 +71,7 @@
 		"sentences-per-line": "^0.2.1",
 		"should-semantic-release": "^0.0.4",
 		"typescript": "^5.0.0",
-		"vitest": "^0.29.0",
+		"vitest": "^0.29.1",
 		"yaml-eslint-parser": "^1.2.0"
 	},
 	"packageManager": "pnpm@7.30.3",
