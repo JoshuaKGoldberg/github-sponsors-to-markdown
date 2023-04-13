@@ -60,6 +60,7 @@ await githubSponsorsToMarkdown({
 
 ```ts
 export interface GithubSponsorsToMarkdownOptions {
+	login?: string;
 	tiers?: Record<string, SponsorshipTier>;
 }
 
