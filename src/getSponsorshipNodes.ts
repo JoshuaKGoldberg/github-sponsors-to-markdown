@@ -26,9 +26,13 @@ interface ResultFields {
 	sponsorshipsAsMaintainer: SponsorshipsAsMaintainer;
 }
 
+type NullableProperties<T> = {
+	[P in keyof T]: T[P] | null;
+};
+
 interface SponsorshipsAsMaintainer {
 	edges: {
-		node: SponsorshipNode;
+		node: NullableProperties<SponsorshipNode>;
 	}[];
 }
 
@@ -88,5 +92,19 @@ export async function getSponsorshipsAsMaintainer({
 	const { sponsorshipsAsMaintainer } =
 		"user" in result ? result.user : result.viewer;
 
-	return sponsorshipsAsMaintainer.edges.map((edge) => edge.node);
+	const nodes = sponsorshipsAsMaintainer.edges.map((edge) => edge.node);
+
+	if (!isFullResponse(nodes)) {
+		throw new Error(
+			"Sponsorship data seems to be missing. Do you have the right token permissions?"
+		);
+	}
+
+	return nodes;
+}
+
+function isFullResponse(
+	nodes: NullableProperties<SponsorshipNode>[]
+): nodes is SponsorshipNode[] {
+	return nodes.every((node) => !!node.tier);
 }
