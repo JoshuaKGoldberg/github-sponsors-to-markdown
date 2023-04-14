@@ -33,7 +33,7 @@ specifiers:
   prettier-plugin-packagejson: ^2.4.2
   release-it: ^15.6.0
   sentences-per-line: ^0.2.1
-  should-semantic-release: ^0.0.4
+  should-semantic-release: ^0.1.0
   typescript: ^5.0.0
   vitest: ^0.29.1
   yaml-eslint-parser: ^1.2.0
@@ -73,7 +73,7 @@ devDependencies:
   prettier-plugin-packagejson: 2.4.2_prettier@2.8.3
   release-it: 15.6.0
   sentences-per-line: 0.2.1
-  should-semantic-release: 0.0.4
+  should-semantic-release: 0.1.1
   typescript: 5.0.2
   vitest: 0.29.1
   yaml-eslint-parser: 1.2.0
@@ -983,6 +983,11 @@ packages:
     resolution: {integrity: sha512-LUewfj94xCMH2rbD5YJ+6AQ4AVjFYTgpp6rboWM5T7N3IsIF65SBEOVcYMGAEzO/kKNiNaW4LoWtoThOhH06gw==}
     dependencies:
       '@octokit/openapi-types': 16.0.0
+
+  /@pkgjs/parseargs/0.11.0:
+    resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
+    engines: {node: '>=14'}
+    dev: true
 
   /@pkgr/utils/2.3.1:
     resolution: {integrity: sha512-wfzX8kc1PMyUILA+1Z/EqoE4UCXGy0iRGMhPwdfae1+f0OXlLqCk+By+aMzgJBzR9AzS4CDizioG6Ss1gvAFJw==}
@@ -5857,11 +5862,12 @@ packages:
       rechoir: 0.6.2
     dev: true
 
-  /should-semantic-release/0.0.4:
-    resolution: {integrity: sha512-7KOlcX5zeEsTPtsgwQ0UKxAL71gPJs7wxcenWmkvxz0LogaCzxRcyKZHEuM90z0dQj5XrIn3CnThT04+8fSlIg==}
+  /should-semantic-release/0.1.1:
+    resolution: {integrity: sha512-gqZVaRzwRenYqfLv5ZLfUHvudjDvpHmdO4yGBark3+OnUA4AGgpwwLD1+aPPH8atXjKPJmplzN+FfKmJi6Ujfw==}
     engines: {node: '>=18'}
     hasBin: true
     dependencies:
+      '@pkgjs/parseargs': 0.11.0
       conventional-commits-parser: 3.2.4
     dev: true
 
