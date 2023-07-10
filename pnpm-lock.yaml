@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@octokit/graphql': ^6.0.0
+  '@octokit/graphql': ^7.0.0
   '@types/eslint': ^8.21.1
   '@typescript-eslint/eslint-plugin': ^5.48.2
   '@typescript-eslint/parser': ^5.48.2
@@ -39,7 +39,7 @@ specifiers:
   yaml-eslint-parser: ^1.2.0
 
 dependencies:
-  '@octokit/graphql': 6.0.1
+  '@octokit/graphql': 7.0.1
 
 devDependencies:
   '@types/eslint': 8.21.2
@@ -909,11 +909,11 @@ packages:
       universal-user-agent: 6.0.0
     dev: true
 
-  /@octokit/endpoint/8.0.1:
-    resolution: {integrity: sha512-tVviBdPuf3kcCiIvXYDJg7NAJrkTh8QEnc+UCybknKdEBCjIi7uQbFX3liQrpk1m5PjwC7fUJg08DYZ4F+l1RQ==}
+  /@octokit/endpoint/9.0.0:
+    resolution: {integrity: sha512-szrQhiqJ88gghWY2Htt8MqUDO6++E/EIXqJ2ZEp5ma3uGS46o7LZAzSLt49myB7rT+Hfw5Y6gO3LmOxGzHijAQ==}
     engines: {node: '>= 18'}
     dependencies:
-      '@octokit/types': 10.0.0
+      '@octokit/types': 11.1.0
       is-plain-object: 5.0.0
       universal-user-agent: 6.0.0
     dev: false
@@ -929,12 +929,12 @@ packages:
       - encoding
     dev: true
 
-  /@octokit/graphql/6.0.1:
-    resolution: {integrity: sha512-d1VbBRGY4cQi7qV2SgoFvshKtqbTsQ135BmDDzoSaRrOPiTqKbfjBcPLeDAmKN/VlGtcRdJqvJ+Vshw16Hx84A==}
+  /@octokit/graphql/7.0.1:
+    resolution: {integrity: sha512-T5S3oZ1JOE58gom6MIcrgwZXzTaxRnxBso58xhozxHpOqSTgDS6YNeEUvZ/kRvXgPrRz/KHnZhtb7jUMRi9E6w==}
     engines: {node: '>= 18'}
     dependencies:
-      '@octokit/request': 7.0.1
-      '@octokit/types': 10.0.0
+      '@octokit/request': 8.0.4
+      '@octokit/types': 11.1.0
       universal-user-agent: 6.0.0
     dev: false
 
@@ -988,11 +988,11 @@ packages:
       once: 1.4.0
     dev: true
 
-  /@octokit/request-error/4.0.2:
-    resolution: {integrity: sha512-uqwUEmZw3x4I9DGYq9fODVAAvcLsPQv97NRycP6syEFu5916M189VnNBW2zANNwqg3OiligNcAey7P0SET843w==}
+  /@octokit/request-error/5.0.0:
+    resolution: {integrity: sha512-1ue0DH0Lif5iEqT52+Rf/hf0RmGO9NWFjrzmrkArpG9trFfDM/efx00BJHdLGuro4BR/gECxCU2Twf5OKrRFsQ==}
     engines: {node: '>= 18'}
     dependencies:
-      '@octokit/types': 10.0.0
+      '@octokit/types': 11.1.0
       deprecation: 2.3.1
       once: 1.4.0
     dev: false
@@ -1011,13 +1011,13 @@ packages:
       - encoding
     dev: true
 
-  /@octokit/request/7.0.1:
-    resolution: {integrity: sha512-R227pDk1fuQXuX17LU8ChzFyTOe/myHvvceBF3C/fFath+NlsVkHICOlvEbx+9EgYUl4uDH7VqTby00menlM8Q==}
+  /@octokit/request/8.0.4:
+    resolution: {integrity: sha512-YZ1XeDRil4ejHKoBP8BgROgP4auOH5A9lLZH96l39GKKEmsKOccQxKP5M7m+Punblg1bFw8LrdeKIDwIzQ8afA==}
     engines: {node: '>= 18'}
     dependencies:
-      '@octokit/endpoint': 8.0.1
-      '@octokit/request-error': 4.0.2
-      '@octokit/types': 10.0.0
+      '@octokit/endpoint': 9.0.0
+      '@octokit/request-error': 5.0.0
+      '@octokit/types': 11.1.0
       is-plain-object: 5.0.0
       universal-user-agent: 6.0.0
     dev: false
@@ -1034,8 +1034,8 @@ packages:
       - encoding
     dev: true
 
-  /@octokit/types/10.0.0:
-    resolution: {integrity: sha512-Vm8IddVmhCgU1fxC1eyinpwqzXPEYu0NrYzD3YZjlGjyftdLBTeqNblRC0jmJmgxbJIsQlyogVeGnrNaaMVzIg==}
+  /@octokit/types/11.1.0:
+    resolution: {integrity: sha512-Fz0+7GyLm/bHt8fwEqgvRBWwIV1S6wRRyq+V6exRKLVWaKGsuy6H9QFYeBVDV7rK6fO3XwHgQOPxv+cLj2zpXQ==}
     dependencies:
       '@octokit/openapi-types': 18.0.0
     dev: false
