@@ -15,16 +15,19 @@ export async function githubSponsorsToMarkdown({
 }: GithubSponsorsToMarkdownOptions) {
 	const logger = verbose ? console.log.bind(console) : undefined;
 	const sponsorshipNodes = await getSponsorshipsAsMaintainer({ logger, login });
+	const tiersSorted = Object.entries(tiers).sort(
+		([a], [b]) => tiers[b].minimum - tiers[a].minimum
+	);
 
 	const sponsorshipsSorted = sponsorshipNodes
 		.filter((node) => !node.isOneTimePayment)
-		.sort((a, b) => b.sponsorEntity.login.localeCompare(a.sponsorEntity.login));
+		.sort((a, b) => a.sponsorEntity.login.localeCompare(b.sponsorEntity.login));
 
 	logger?.(
 		"Sponsorships, sorted:",
 		JSON.stringify(sponsorshipsSorted, null, 4)
 	);
-	const tierGroups = groupSponsorships(sponsorshipsSorted, tiers);
+	const tierGroups = groupSponsorships(sponsorshipsSorted, tiersSorted);
 	const width = `${Math.floor(100 / Object.keys(tierGroups).length)}%`;
 
 	const tierGroupsSorted = Object.fromEntries(
@@ -80,10 +83,9 @@ export async function githubSponsorsToMarkdown({
 
 	function groupSponsorships(
 		sponsorships: SponsorshipNode[],
-		tiers: Record<string, SponsorshipTier>
+		tierEntries: [string, SponsorshipTier][]
 	) {
 		const tierGroups: Record<string, SponsorshipDescription[]> = {};
-		const tierEntries = Object.entries(tiers);
 
 		logger?.("Collected tier entries:", JSON.stringify(tierEntries, null, 4));
 
