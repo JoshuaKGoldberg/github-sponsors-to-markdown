@@ -96,7 +96,7 @@ export async function getSponsorshipsAsMaintainer({
 
 	if (!isFullResponse(nodes)) {
 		throw new Error(
-			"Sponsorship data seems to be missing. Do you have the right token permissions?"
+			"Sponsorship data seems to be missing. Do you have the right token permissions?",
 		);
 	}
 
@@ -104,7 +104,7 @@ export async function getSponsorshipsAsMaintainer({
 }
 
 function isFullResponse(
-	nodes: NullableProperties<SponsorshipNode>[]
+	nodes: NullableProperties<SponsorshipNode>[],
 ): nodes is SponsorshipNode[] {
 	return nodes.every((node) => !!node.tier);
 }

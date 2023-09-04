@@ -12,6 +12,10 @@ export interface GithubSponsorsToMarkdownOptions {
 
 export const defaultOptions = {
 	tiers: {
+		Bronze: {
+			minimum: 5,
+			size: 25,
+		},
 		Gold: {
 			minimum: 25,
 			size: 100,
@@ -19,10 +23,6 @@ export const defaultOptions = {
 		Silver: {
 			minimum: 10,
 			size: 50,
-		},
-		Bronze: {
-			minimum: 5,
-			size: 25,
 		},
 	},
 } satisfies GithubSponsorsToMarkdownOptions;

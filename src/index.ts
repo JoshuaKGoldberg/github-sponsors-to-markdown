@@ -1,11 +1,11 @@
 import {
-	getSponsorshipsAsMaintainer,
 	SponsorshipNode,
+	getSponsorshipsAsMaintainer,
 } from "./getSponsorshipNodes.js";
 import {
-	defaultOptions,
 	GithubSponsorsToMarkdownOptions,
 	SponsorshipTier,
+	defaultOptions,
 } from "./options.js";
 
 export async function githubSponsorsToMarkdown({
@@ -16,7 +16,7 @@ export async function githubSponsorsToMarkdown({
 	const logger = verbose ? console.log.bind(console) : undefined;
 	const sponsorshipNodes = await getSponsorshipsAsMaintainer({ logger, login });
 	const tiersSorted = Object.entries(tiers).sort(
-		([a], [b]) => tiers[b].minimum - tiers[a].minimum
+		([a], [b]) => tiers[b].minimum - tiers[a].minimum,
 	);
 
 	const sponsorshipsSorted = sponsorshipNodes
@@ -25,15 +25,15 @@ export async function githubSponsorsToMarkdown({
 
 	logger?.(
 		"Sponsorships, sorted:",
-		JSON.stringify(sponsorshipsSorted, null, 4)
+		JSON.stringify(sponsorshipsSorted, null, 4),
 	);
 	const tierGroups = groupSponsorships(sponsorshipsSorted, tiersSorted);
 	const width = `${Math.floor(100 / Object.keys(tierGroups).length)}%`;
 
 	const tierGroupsSorted = Object.fromEntries(
 		Object.entries(tierGroups).sort(
-			([a], [b]) => tiers[b].minimum - tiers[a].minimum
-		)
+			([a], [b]) => tiers[b].minimum - tiers[a].minimum,
+		),
 	);
 
 	return [
@@ -44,7 +44,7 @@ export async function githubSponsorsToMarkdown({
 			(tier) =>
 				`\t\t\t<th width="${width}">${
 					tiers[tier].label ?? `${tier} Sponsors`
-				}</th>`
+				}</th>`,
 		),
 		`\t\t</tr>`,
 		`\t</thead>`,
@@ -55,7 +55,7 @@ export async function githubSponsorsToMarkdown({
 				`\t\t\t<td >`,
 				...descriptions.map(createLinkForSponsorship),
 				`\t\t\t</td>`,
-			].join("\n")
+			].join("\n"),
 		),
 		`\t\t</tr>`,
 		`\t</tbody>`,
@@ -83,7 +83,7 @@ export async function githubSponsorsToMarkdown({
 
 	function groupSponsorships(
 		sponsorships: SponsorshipNode[],
-		tierEntries: [string, SponsorshipTier][]
+		tierEntries: [string, SponsorshipTier][],
 	) {
 		const tierGroups: Record<string, SponsorshipDescription[]> = {};
 
@@ -92,6 +92,7 @@ export async function githubSponsorsToMarkdown({
 		for (const sponsorship of sponsorships) {
 			for (const [tierName, tier] of tierEntries) {
 				if (sponsorship.tier.monthlyPriceInDollars >= tier.minimum) {
+					// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 					(tierGroups[tierName] ??= []).push({ sponsorship, tier });
 					break;
 				}
