@@ -13,7 +13,7 @@
 	},
 	"type": "module",
 	"main": "./lib/index.js",
-	"bin": "./bin/index.js",
+	"bin": "./bin/github-sponsors-to-markdown.js",
 	"files": [
 		"lib/",
 		"package.json",

@@ -86,6 +86,7 @@ await githubSponsorsToMarkdown({
 
 ```ts
 export interface GithubSponsorsToMarkdownOptions {
+	auth: string;
 	login?: string;
 	tiers?: Record<string, SponsorshipTier>;
 	verbose?: boolean;
@@ -108,6 +109,10 @@ export const defaultOptions = {
 	},
 } satisfies GithubSponsorsToMarkdownOptions;
 ```
+
+#### `auth`
+
+GitHub auth token, such as what's provided by `gh auth token`.
 
 #### `login`
 

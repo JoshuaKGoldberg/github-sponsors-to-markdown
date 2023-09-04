@@ -5,6 +5,7 @@ export interface SponsorshipTier {
 }
 
 export interface GithubSponsorsToMarkdownOptions {
+	auth: string;
 	login?: string;
 	tiers?: Record<string, SponsorshipTier>;
 	verbose?: boolean;
@@ -25,4 +26,4 @@ export const defaultOptions = {
 			size: 50,
 		},
 	},
-} satisfies GithubSponsorsToMarkdownOptions;
+} satisfies Omit<GithubSponsorsToMarkdownOptions, "auth">;

@@ -1,7 +1,7 @@
 import {
 	SponsorshipNode,
 	getSponsorshipsAsMaintainer,
-} from "./getSponsorshipNodes.js";
+} from "./getSponsorshipsAsMaintainer.js";
 import {
 	GithubSponsorsToMarkdownOptions,
 	SponsorshipTier,
@@ -9,12 +9,25 @@ import {
 } from "./options.js";
 
 export async function githubSponsorsToMarkdown({
+	auth,
 	login,
 	tiers = defaultOptions.tiers,
 	verbose,
 }: GithubSponsorsToMarkdownOptions) {
+	if (!auth) {
+		if (!process.env.GH_TOKEN) {
+			throw new Error(`Please provide an auth token.`);
+		}
+
+		auth = process.env.GH_TOKEN;
+	}
+
 	const logger = verbose ? console.log.bind(console) : undefined;
-	const sponsorshipNodes = await getSponsorshipsAsMaintainer({ logger, login });
+	const sponsorshipNodes = await getSponsorshipsAsMaintainer({
+		auth,
+		logger,
+		login,
+	});
 	const tiersSorted = Object.entries(tiers).sort(
 		([a], [b]) => tiers[b].minimum - tiers[a].minimum,
 	);
