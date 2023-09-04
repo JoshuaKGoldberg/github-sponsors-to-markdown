@@ -3,14 +3,12 @@ import { describe, expect, it, vi } from "vitest";
 import { getSponsorshipsAsMaintainer } from "./getSponsorshipsAsMaintainer.js";
 
 const mockGraphql = vi.fn();
-const mockGraphqlDefaults = vi.fn().mockResolvedValue(mockGraphql);
 
 vi.mock("@octokit/graphql", () => ({
 	graphql: { defaults: () => mockGraphql },
 }));
 
 const auth = "abc123";
-const logger = vi.fn();
 const node = { id: "def456", tier: { id: "ghi789", monthlyPriceInDollars: 1 } };
 
 describe("getSponsorshipsAsMaintainer", () => {
@@ -20,7 +18,11 @@ describe("getSponsorshipsAsMaintainer", () => {
 			user: { sponsorshipsAsMaintainer: { edges: [{ node }] } },
 		});
 
-		const result = await getSponsorshipsAsMaintainer({ auth, logger, login });
+		const result = await getSponsorshipsAsMaintainer({
+			auth,
+			logger: undefined,
+			login,
+		});
 
 		expect(mockGraphql.mock.calls).toMatchInlineSnapshot(`
 			[
@@ -59,14 +61,14 @@ describe("getSponsorshipsAsMaintainer", () => {
 		expect(result).toEqual([node]);
 	});
 
-	it("queries under the view when login is not provided", async () => {
+	it("queries under the view when login is not provided", async () => {
 		mockGraphql.mockResolvedValue({
 			viewer: { sponsorshipsAsMaintainer: { edges: [{ node }] } },
 		});
 
 		const result = await getSponsorshipsAsMaintainer({
 			auth,
-			logger,
+			logger: undefined,
 			login: undefined,
 		});
 
@@ -105,5 +107,65 @@ describe("getSponsorshipsAsMaintainer", () => {
 		`);
 
 		expect(result).toEqual([node]);
+	});
+
+	it("logs to the logger when one is provided", async () => {
+		const logger = vi.fn();
+
+		mockGraphql.mockResolvedValue({
+			viewer: { sponsorshipsAsMaintainer: { edges: [{ node }] } },
+		});
+
+		await getSponsorshipsAsMaintainer({
+			auth,
+			logger,
+			login: "test-login",
+		});
+
+		expect(logger.mock.calls).toMatchInlineSnapshot(`
+			[
+			  [
+			    "Querying sponsorships for:",
+			    "test-login",
+			  ],
+			  [
+			    "GraphQL response:",
+			    "{
+			    \\"viewer\\": {
+			        \\"sponsorshipsAsMaintainer\\": {
+			            \\"edges\\": [
+			                {
+			                    \\"node\\": {
+			                        \\"id\\": \\"def456\\",
+			                        \\"tier\\": {
+			                            \\"id\\": \\"ghi789\\",
+			                            \\"monthlyPriceInDollars\\": 1
+			                        }
+			                    }
+			                }
+			            ]
+			        }
+			    }
+			}",
+			  ],
+			]
+		`);
+	});
+
+	it("throws an error if sponsorship data is missing information", async () => {
+		mockGraphql.mockResolvedValue({
+			viewer: { sponsorshipsAsMaintainer: { edges: [{ node: {} }] } },
+		});
+
+		await expect(
+			async () =>
+				await getSponsorshipsAsMaintainer({
+					auth,
+					logger: undefined,
+					login: undefined,
+				}),
+		).rejects.toMatchInlineSnapshot(
+			"[Error: Sponsorship data seems to be missing. Do you have the right token permissions?]",
+		);
 	});
 });
