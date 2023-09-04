@@ -1,12 +1,9 @@
+import { getSponsorshipsAsMaintainer } from "./getSponsorshipsAsMaintainer.js";
 import {
-	SponsorshipNode,
-	getSponsorshipsAsMaintainer,
-} from "./getSponsorshipsAsMaintainer.js";
-import {
-	GithubSponsorsToMarkdownOptions,
-	SponsorshipTier,
-	defaultOptions,
-} from "./options.js";
+	SponsorshipDescription,
+	groupSponsorships,
+} from "./groupSponsorships.js";
+import { GithubSponsorsToMarkdownOptions, defaultOptions } from "./options.js";
 
 export async function githubSponsorsToMarkdown({
 	auth,
@@ -32,6 +29,8 @@ export async function githubSponsorsToMarkdown({
 		([a], [b]) => tiers[b].minimum - tiers[a].minimum,
 	);
 
+	logger?.("Tiers, sorted:", JSON.stringify(tiersSorted, null, 4));
+
 	const sponsorshipsSorted = sponsorshipNodes
 		.filter((node) => !node.isOneTimePayment)
 		.sort((a, b) => a.sponsorEntity.login.localeCompare(b.sponsorEntity.login));
@@ -40,6 +39,7 @@ export async function githubSponsorsToMarkdown({
 		"Sponsorships, sorted:",
 		JSON.stringify(sponsorshipsSorted, null, 4),
 	);
+
 	const tierGroups = groupSponsorships(sponsorshipsSorted, tiersSorted);
 	const width = `${Math.floor(100 / Object.keys(tierGroups).length)}%`;
 
@@ -87,31 +87,5 @@ export async function githubSponsorsToMarkdown({
 			`\t\t\t\t\t<img alt="${name}" src="${url}.png?size=${tier.size}" />`,
 			`\t\t\t\t</a>`,
 		].join("\n");
-	}
-
-	interface SponsorshipDescription {
-		sponsorship: SponsorshipNode;
-		tier: SponsorshipTier;
-	}
-
-	function groupSponsorships(
-		sponsorships: SponsorshipNode[],
-		tierEntries: [string, SponsorshipTier][],
-	) {
-		const tierGroups: Record<string, SponsorshipDescription[]> = {};
-
-		logger?.("Collected tier entries:", JSON.stringify(tierEntries, null, 4));
-
-		for (const sponsorship of sponsorships) {
-			for (const [tierName, tier] of tierEntries) {
-				if (sponsorship.tier.monthlyPriceInDollars >= tier.minimum) {
-					// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-					(tierGroups[tierName] ??= []).push({ sponsorship, tier });
-					break;
-				}
-			}
-		}
-
-		return tierGroups;
 	}
 }
