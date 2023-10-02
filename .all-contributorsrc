@@ -9,7 +9,8 @@
         "tool",
         "bug",
         "code",
-        "maintenance"
+        "maintenance",
+        "infra"
       ],
       "login": "JoshuaKGoldberg",
       "name": "Josh Goldberg",
@@ -25,5 +26,6 @@
   "projectName": "github-sponsors-to-markdown",
   "projectOwner": "JoshuaKGoldberg",
   "repoHost": "https://github.com",
-  "repoType": "github"
+  "repoType": "github",
+  "commitType": "docs"
 }
