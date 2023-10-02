@@ -1,23 +1,35 @@
+import { getSponsorshipsAsMaintainer } from "./getSponsorshipsAsMaintainer.js";
 import {
-	getSponsorshipsAsMaintainer,
-	SponsorshipNode,
-} from "./getSponsorshipNodes.js";
-import {
-	defaultOptions,
-	GithubSponsorsToMarkdownOptions,
-	SponsorshipTier,
-} from "./options.js";
+	SponsorshipDescription,
+	groupSponsorships,
+} from "./groupSponsorships.js";
+import { GithubSponsorsToMarkdownOptions, defaultOptions } from "./options.js";
 
 export async function githubSponsorsToMarkdown({
+	auth,
 	login,
 	tiers = defaultOptions.tiers,
 	verbose,
 }: GithubSponsorsToMarkdownOptions) {
+	if (!auth) {
+		if (!process.env.GH_TOKEN) {
+			throw new Error(`Please provide an auth token.`);
+		}
+
+		auth = process.env.GH_TOKEN;
+	}
+
 	const logger = verbose ? console.log.bind(console) : undefined;
-	const sponsorshipNodes = await getSponsorshipsAsMaintainer({ logger, login });
+	const sponsorshipNodes = await getSponsorshipsAsMaintainer({
+		auth,
+		logger,
+		login,
+	});
 	const tiersSorted = Object.entries(tiers).sort(
-		([a], [b]) => tiers[b].minimum - tiers[a].minimum
+		([a], [b]) => tiers[b].minimum - tiers[a].minimum,
 	);
+
+	logger?.("Tiers, sorted:", JSON.stringify(tiersSorted, null, 4));
 
 	const sponsorshipsSorted = sponsorshipNodes
 		.filter((node) => !node.isOneTimePayment)
@@ -25,15 +37,16 @@ export async function githubSponsorsToMarkdown({
 
 	logger?.(
 		"Sponsorships, sorted:",
-		JSON.stringify(sponsorshipsSorted, null, 4)
+		JSON.stringify(sponsorshipsSorted, null, 4),
 	);
+
 	const tierGroups = groupSponsorships(sponsorshipsSorted, tiersSorted);
 	const width = `${Math.floor(100 / Object.keys(tierGroups).length)}%`;
 
 	const tierGroupsSorted = Object.fromEntries(
 		Object.entries(tierGroups).sort(
-			([a], [b]) => tiers[b].minimum - tiers[a].minimum
-		)
+			([a], [b]) => tiers[b].minimum - tiers[a].minimum,
+		),
 	);
 
 	return [
@@ -44,7 +57,7 @@ export async function githubSponsorsToMarkdown({
 			(tier) =>
 				`\t\t\t<th width="${width}">${
 					tiers[tier].label ?? `${tier} Sponsors`
-				}</th>`
+				}</th>`,
 		),
 		`\t\t</tr>`,
 		`\t</thead>`,
@@ -55,7 +68,7 @@ export async function githubSponsorsToMarkdown({
 				`\t\t\t<td >`,
 				...descriptions.map(createLinkForSponsorship),
 				`\t\t\t</td>`,
-			].join("\n")
+			].join("\n"),
 		),
 		`\t\t</tr>`,
 		`\t</tbody>`,
@@ -74,30 +87,5 @@ export async function githubSponsorsToMarkdown({
 			`\t\t\t\t\t<img alt="${name}" src="${url}.png?size=${tier.size}" />`,
 			`\t\t\t\t</a>`,
 		].join("\n");
-	}
-
-	interface SponsorshipDescription {
-		sponsorship: SponsorshipNode;
-		tier: SponsorshipTier;
-	}
-
-	function groupSponsorships(
-		sponsorships: SponsorshipNode[],
-		tierEntries: [string, SponsorshipTier][]
-	) {
-		const tierGroups: Record<string, SponsorshipDescription[]> = {};
-
-		logger?.("Collected tier entries:", JSON.stringify(tierEntries, null, 4));
-
-		for (const sponsorship of sponsorships) {
-			for (const [tierName, tier] of tierEntries) {
-				if (sponsorship.tier.monthlyPriceInDollars >= tier.minimum) {
-					(tierGroups[tierName] ??= []).push({ sponsorship, tier });
-					break;
-				}
-			}
-		}
-
-		return tierGroups;
 	}
 }

@@ -1,29 +1,30 @@
 <h1 align="center">GitHub Sponsors to Markdown</h1>
 
-<p align="center">Creates a Markdown table summarizing your GitHub sponsors.</p>
+<p align="center">Creates a Markdown table summarizing your GitHub sponsors. 💰</p>
 
 <p align="center">
 	<a href="#contributors" target="_blank">
 <!-- prettier-ignore-start -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<img alt="All Contributors: 1" src="https://img.shields.io/badge/all_contributors-1-21bb42.svg" />
+<img alt="All Contributors: 1 👪" src="https://img.shields.io/badge/all_contributors-1_👪-21bb42.svg" />
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- prettier-ignore-end -->
-	</a>
+</a>
 	<a href="https://codecov.io/gh/JoshuaKGoldberg/github-sponsors-to-markdown" target="_blank">
-		<img alt="Codecov Test Coverage" src="https://codecov.io/gh/JoshuaKGoldberg/github-sponsors-to-markdown/branch/main/graph/badge.svg?token=eVIFY4MhfQ"/>
+		<img alt="Codecov Test Coverage" src="https://codecov.io/gh/JoshuaKGoldberg/github-sponsors-to-markdown/branch/main/graph/badge.svg"/>
 	</a>
 	<a href="https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/blob/main/.github/CODE_OF_CONDUCT.md" target="_blank">
 		<img alt="Contributor Covenant" src="https://img.shields.io/badge/code_of_conduct-enforced-21bb42" />
 	</a>
 	<a href="https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/blob/main/LICENSE.md" target="_blank">
-	    <img alt="License: MIT" src="https://img.shields.io/github/license/JoshuaKGoldberg/github-sponsors-to-markdown?color=21bb42">
-    </a>
+		<img alt="License: MIT" src="https://img.shields.io/github/license/JoshuaKGoldberg/github-sponsors-to-markdown?color=21bb42">
+	</a>
 	<a href="https://github.com/sponsors/JoshuaKGoldberg" target="_blank">
-    	<img alt="Sponsor: On GitHub" src="https://img.shields.io/badge/sponsor-on_github-21bb42.svg" />
-    </a>
+		<img alt="Sponsor: On GitHub" src="https://img.shields.io/badge/sponsor-on_github-21bb42.svg" />
+	</a>
 	<img alt="Style: Prettier" src="https://img.shields.io/badge/style-prettier-21bb42.svg" />
-    <img alt="TypeScript: Strict" src="https://img.shields.io/badge/typescript-strict-21bb42.svg" />
+	<img alt="TypeScript: Strict" src="https://img.shields.io/badge/typescript-strict-21bb42.svg" />
+	<img alt="npm package version" src="https://img.shields.io/npm/v/github-sponsors-to-markdown?color=21bb42" />
 </p>
 
 ## Usage
@@ -60,6 +61,7 @@ await githubSponsorsToMarkdown({
 
 ```ts
 export interface GithubSponsorsToMarkdownOptions {
+	auth: string;
 	login?: string;
 	tiers?: Record<string, SponsorshipTier>;
 	verbose?: boolean;
@@ -67,6 +69,10 @@ export interface GithubSponsorsToMarkdownOptions {
 
 export const defaultOptions = {
 	tiers: {
+		Bronze: {
+			minimum: 5,
+			size: 25,
+		},
 		Gold: {
 			minimum: 25,
 			size: 100,
@@ -75,13 +81,13 @@ export const defaultOptions = {
 			minimum: 10,
 			size: 50,
 		},
-		Bronze: {
-			minimum: 5,
-			size: 25,
-		},
 	},
 } satisfies GithubSponsorsToMarkdownOptions;
 ```
+
+#### `auth`
+
+GitHub auth token, such as what's provided by `gh auth token`.
 
 #### `login`
 
@@ -101,14 +107,14 @@ Custom tiers to render instead of the defaults.
 ```ts
 githubSponsorsToMarkdown({
 	tiers: {
+		"Also Awesome": {
+			minimum: 10,
+			size: 50,
+		},
 		Awesome: {
 			label: "Best People Ever!",
 			minimum: 100,
 			size: 100,
-		},
-		"Also Awesome": {
-			minimum: 10,
-			size: 50,
 		},
 	},
 });
@@ -153,7 +159,7 @@ Thanks! 💖
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="http://www.joshuakgoldberg.com"><img src="https://avatars.githubusercontent.com/u/3335181?v=4?s=100" width="100px;" alt="Josh Goldberg"/><br /><sub><b>Josh Goldberg</b></sub></a><br /><a href="#tool-JoshuaKGoldberg" title="Tools">🔧</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://www.joshuakgoldberg.com"><img src="https://avatars.githubusercontent.com/u/3335181?v=4?s=100" width="100px;" alt="Josh Goldberg"/><br /><sub><b>Josh Goldberg</b></sub></a><br /><a href="#tool-JoshuaKGoldberg" title="Tools">🔧</a> <a href="https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/issues?q=author%3AJoshuaKGoldberg" title="Bug reports">🐛</a> <a href="https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/commits?author=JoshuaKGoldberg" title="Code">💻</a> <a href="#maintenance-JoshuaKGoldberg" title="Maintenance">🚧</a></td>
     </tr>
   </tbody>
 </table>
@@ -163,7 +169,5 @@ Thanks! 💖
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 <!-- spellchecker: enable -->
-
-<!-- You can remove this notice if you don't want it 🙂 no worries! -->
 
 > 💙 This package is based on [@JoshuaKGoldberg](https://github.com/JoshuaKGoldberg)'s [template-typescript-node-package](https://github.com/JoshuaKGoldberg/template-typescript-node-package).

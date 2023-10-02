@@ -5,6 +5,7 @@ export interface SponsorshipTier {
 }
 
 export interface GithubSponsorsToMarkdownOptions {
+	auth: string;
 	login?: string;
 	tiers?: Record<string, SponsorshipTier>;
 	verbose?: boolean;
@@ -12,6 +13,10 @@ export interface GithubSponsorsToMarkdownOptions {
 
 export const defaultOptions = {
 	tiers: {
+		Bronze: {
+			minimum: 5,
+			size: 25,
+		},
 		Gold: {
 			minimum: 25,
 			size: 100,
@@ -20,9 +25,5 @@ export const defaultOptions = {
 			minimum: 10,
 			size: 50,
 		},
-		Bronze: {
-			minimum: 5,
-			size: 25,
-		},
 	},
-} satisfies GithubSponsorsToMarkdownOptions;
+} satisfies Omit<GithubSponsorsToMarkdownOptions, "auth">;
