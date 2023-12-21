@@ -5,7 +5,7 @@ export interface SponsorshipTier {
 }
 
 export interface GithubSponsorsToMarkdownOptions {
-	auth: string;
+	auth?: string;
 	login?: string;
 	tiers?: Record<string, SponsorshipTier>;
 	verbose?: boolean;

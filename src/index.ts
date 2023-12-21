@@ -11,12 +11,9 @@ export async function githubSponsorsToMarkdown({
 	tiers = defaultOptions.tiers,
 	verbose,
 }: GithubSponsorsToMarkdownOptions) {
+	auth ||= process.env.GH_TOKEN;
 	if (!auth) {
-		if (!process.env.GH_TOKEN) {
-			throw new Error(`Please provide an auth token.`);
-		}
-
-		auth = process.env.GH_TOKEN;
+		throw new Error(`Please provide an auth token (process.env.GH_TOKEN).`);
 	}
 
 	const logger = verbose ? console.log.bind(console) : undefined;
