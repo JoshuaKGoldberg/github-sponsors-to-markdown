@@ -84,7 +84,7 @@ export async function githubSponsorsToMarkdown({
 
 		return [
 			`\t\t\t\t<a href="${url}">`,
-			`\t\t\t\t\t<img alt="${name}" src="${url}.png?size=${tier.size}" />`,
+			`\t\t\t\t\t<img alt="${name}" height="${tier.size}px" src="${url}.png?size=${tier.size}" width="${tier.size}px" />`,
 			`\t\t\t\t</a>`,
 		].join("\n");
 	}
