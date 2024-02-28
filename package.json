@@ -39,7 +39,7 @@
 		"*": "prettier --ignore-unknown --write"
 	},
 	"dependencies": {
-		"@octokit/graphql": "^7.0.0"
+		"@octokit/graphql": "^8.0.0"
 	},
 	"devDependencies": {
 		"@release-it/conventional-changelog": "^8.0.0",
