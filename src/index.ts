@@ -1,9 +1,9 @@
 import { getSponsorshipsAsMaintainer } from "./getSponsorshipsAsMaintainer.js";
 import {
-	SponsorshipDescription,
 	groupSponsorships,
+	SponsorshipDescription,
 } from "./groupSponsorships.js";
-import { GithubSponsorsToMarkdownOptions, defaultOptions } from "./options.js";
+import { defaultOptions, GithubSponsorsToMarkdownOptions } from "./options.js";
 
 export async function githubSponsorsToMarkdown({
 	auth,
