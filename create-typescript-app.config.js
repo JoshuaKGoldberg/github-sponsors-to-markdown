@@ -5,7 +5,7 @@
 //   https://www.create.bingo/execution#transition-mode
 // Eventually these values should be inferable, making this config file unnecessary:
 //   https://github.com/JoshuaKGoldberg/bingo/issues/128
-import { blockESLint, blockKnip, createConfig } from "create-typescript-app";
+import { blockESLint, createConfig } from "create-typescript-app";
 
 export default createConfig({
 	refinements: {
@@ -21,9 +21,6 @@ export default createConfig({
 						},
 					},
 				],
-			}),
-			blockKnip({
-				ignoreDependencies: ["create-typescript-app"],
 			}),
 		],
 	},
