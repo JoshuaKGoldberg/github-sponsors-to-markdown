@@ -38,7 +38,7 @@ export default tseslint.config(
 				projectService: {
 					allowDefaultProject: [
 						"*.config.*s",
-						"./bin/github-sponsors-to-markdown.js",
+						"bin/github-sponsors-to-markdown.js",
 					],
 				},
 				tsconfigRootDir: import.meta.dirname,
