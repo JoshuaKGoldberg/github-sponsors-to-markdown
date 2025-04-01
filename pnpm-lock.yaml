@@ -37,7 +37,7 @@ importers:
         specifier: 0.5.0
         version: 0.5.0
       create-typescript-app:
-        specifier: ^2.21.4
+        specifier: 2.21.4
         version: 2.21.4(bingo-systems@0.5.4)
       cspell:
         specifier: 8.17.5
