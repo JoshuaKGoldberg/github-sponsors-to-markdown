@@ -2,30 +2,6 @@ import { graphql } from "@octokit/graphql";
 
 import { Logger } from "./types.js";
 
-type GraphQLResult = GraphQLUserResult | GraphQLViewerResult;
-
-interface GraphQLUserResult {
-	user: ResultFields;
-}
-
-interface GraphQLViewerResult {
-	viewer: ResultFields;
-}
-
-interface ResultFields {
-	sponsorshipsAsMaintainer: SponsorshipsAsMaintainer;
-}
-
-type NullableProperties<T> = {
-	[P in keyof T]: T[P] | null;
-};
-
-interface SponsorshipsAsMaintainer {
-	edges: {
-		node: NullableProperties<SponsorshipNode>;
-	}[];
-}
-
 export interface SponsorshipNode {
 	isOneTimePayment: boolean;
 	sponsorEntity: {
@@ -42,6 +18,30 @@ interface GetSponsorshipsAsMaintainerOptions {
 	auth: string;
 	logger: Logger | undefined;
 	login: string | undefined;
+}
+
+type GraphQLResult = GraphQLUserResult | GraphQLViewerResult;
+
+interface GraphQLUserResult {
+	user: ResultFields;
+}
+
+interface GraphQLViewerResult {
+	viewer: ResultFields;
+}
+
+type NullableProperties<T> = {
+	[P in keyof T]: null | T[P];
+};
+
+interface ResultFields {
+	sponsorshipsAsMaintainer: SponsorshipsAsMaintainer;
+}
+
+interface SponsorshipsAsMaintainer {
+	edges: {
+		node: NullableProperties<SponsorshipNode>;
+	}[];
 }
 
 export async function getSponsorshipsAsMaintainer({

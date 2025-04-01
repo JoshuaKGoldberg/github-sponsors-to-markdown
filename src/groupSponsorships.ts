@@ -15,7 +15,6 @@ export function groupSponsorships(
 	for (const sponsorship of sponsorships) {
 		for (const [tierName, tier] of tierEntries) {
 			if (sponsorship.tier.monthlyPriceInDollars >= tier.minimum) {
-				// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 				(tierGroups[tierName] ??= []).push({ sponsorship, tier });
 				break;
 			}
