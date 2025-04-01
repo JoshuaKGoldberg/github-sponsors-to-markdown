@@ -29,7 +29,7 @@ describe("getSponsorshipsAsMaintainer", () => {
 			  [
 			    "
 				    {
-				        user(login: \\"test-login\\") {
+				        user(login: "test-login") {
 				            sponsorshipsAsMaintainer(activeOnly: true, first: 100) {
 			                    edges {
 			                        node {
@@ -131,15 +131,15 @@ describe("getSponsorshipsAsMaintainer", () => {
 			  [
 			    "GraphQL response:",
 			    "{
-			    \\"viewer\\": {
-			        \\"sponsorshipsAsMaintainer\\": {
-			            \\"edges\\": [
+			    "viewer": {
+			        "sponsorshipsAsMaintainer": {
+			            "edges": [
 			                {
-			                    \\"node\\": {
-			                        \\"id\\": \\"def456\\",
-			                        \\"tier\\": {
-			                            \\"id\\": \\"ghi789\\",
-			                            \\"monthlyPriceInDollars\\": 1
+			                    "node": {
+			                        "id": "def456",
+			                        "tier": {
+			                            "id": "ghi789",
+			                            "monthlyPriceInDollars": 1
 			                        }
 			                    }
 			                }
