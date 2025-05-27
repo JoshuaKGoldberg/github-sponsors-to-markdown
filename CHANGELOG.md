@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.3](https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/compare/0.2.2...0.2.3) (2025-05-27)
+
+### Bug Fixes
+
+- **deps:** update dependency @octokit/graphql to v9 ([#810](https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/issues/810)) ([5408ce1](https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/commit/5408ce128e32da35c0b73231922b256ee50663c2))
+
 ## [0.2.2](https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/compare/0.2.1...0.2.2) (2025-04-01)
 
 ### Bug Fixes
