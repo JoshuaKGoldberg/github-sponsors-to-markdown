@@ -30,12 +30,13 @@ import { githubSponsorsToMarkdown } from "github-sponsors-to-markdown";
 console.log(await githubSponsorsToMarkdown());
 ```
 
-Note that you'll need a `GH_TOKEN` environment variable.
+Note that you'll need a GitHub auth token.
+If an `auth` option isn't provided, one will be retrieved using [`get-github-auth-token`](https://github.com/JoshuaKGoldberg/get-github-auth-token): first from a `GH_TOKEN` environment variable, then from `gh auth token`.
 For example:
 
 ```shell
 gh auth refresh --scopes read:user # Only necessary your first time
-GH_TOKEN=$(gh auth token) node build.js
+node build.js
 ```
 
 > See this in action on [github.com/JoshuaKGoldberg](https://github.com/JoshuaKGoldberg#thanks-to-my-sponsors)! ⚡️
@@ -52,7 +53,7 @@ await githubSponsorsToMarkdown({
 
 ```ts
 export interface GithubSponsorsToMarkdownOptions {
-	auth: string;
+	auth?: string;
 	login?: string;
 	tiers?: Record<string, SponsorshipTier>;
 	verbose?: boolean;
@@ -79,6 +80,7 @@ export const defaultOptions = {
 #### `auth`
 
 GitHub auth token, such as what's provided by `gh auth token`.
+If not provided, defaults to the token found by [`get-github-auth-token`](https://github.com/JoshuaKGoldberg/get-github-auth-token).
 
 #### `login`
 
