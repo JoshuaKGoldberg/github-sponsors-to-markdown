@@ -31,7 +31,7 @@ console.log(await githubSponsorsToMarkdown());
 ```
 
 Note that you'll need a GitHub auth token.
-If an `auth` option isn't provided, one will be retrieved using [`get-github-auth-token`](https://github.com/JoshuaKGoldberg/get-github-auth-token): first from a `GH_TOKEN` environment variable, then from `gh auth token`.
+If an `auth` option isn't provided, one will be retrieved using [`get-github-auth-token`](https://github.com/JoshuaKGoldberg/get-github-auth-token).
 For example:
 
 ```shell
