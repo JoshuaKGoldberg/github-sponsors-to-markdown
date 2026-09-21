@@ -11,6 +11,9 @@ importers:
       '@octokit/graphql':
         specifier: ^9.0.0
         version: 9.0.3
+      get-github-auth-token:
+        specifier: ^0.2.0
+        version: 0.2.0
     devDependencies:
       '@eslint-community/eslint-plugin-eslint-comments':
         specifier: 4.7.0
@@ -2634,6 +2637,10 @@ packages:
 
   get-github-auth-token@0.1.2:
     resolution: {integrity: sha512-vcGCRhKNOOynlxi7j3dOrkCkxG1rxt/IbmZY9A+xXMhRAUMeIA5T4Fn0LTaPXfQWdUkOcc3DBWDvcc6dmnxmYw==}
+    engines: {node: '>=18'}
+
+  get-github-auth-token@0.2.0:
+    resolution: {integrity: sha512-3Kbqg9jhyylj/qyumXOhhbXaV23UUIkTQ2TVXQGlGswuciQ09U7hSAt89lusAAj1hu0rRYSdADVqceKqVgiKBQ==}
     engines: {node: '>=18'}
 
   get-stream@5.2.0:
@@ -6985,6 +6992,8 @@ snapshots:
   get-east-asian-width@1.6.0: {}
 
   get-github-auth-token@0.1.2: {}
+
+  get-github-auth-token@0.2.0: {}
 
   get-stream@5.2.0:
     dependencies:

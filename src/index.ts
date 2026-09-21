@@ -1,3 +1,5 @@
+import { getGitHubAuthToken } from "get-github-auth-token";
+
 import { getSponsorshipsAsMaintainer } from "./getSponsorshipsAsMaintainer.js";
 import {
 	groupSponsorships,
@@ -6,18 +8,12 @@ import {
 import { defaultOptions, GithubSponsorsToMarkdownOptions } from "./options.js";
 
 export async function githubSponsorsToMarkdown({
-	auth,
+	auth: authOption,
 	login,
 	tiers = defaultOptions.tiers,
 	verbose,
-}: GithubSponsorsToMarkdownOptions) {
-	// TODO: Switch to get-github-auth-token
-	// https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/issues/748
-	// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-	auth ||= process.env.GH_TOKEN;
-	if (!auth) {
-		throw new Error(`Please provide an auth token (process.env.GH_TOKEN).`);
-	}
+}: GithubSponsorsToMarkdownOptions = {}) {
+	const auth = authOption ?? (await getAuthFromEnvironment());
 
 	const logger = verbose ? console.log.bind(console) : undefined;
 	const sponsorshipNodes = await getSponsorshipsAsMaintainer({
@@ -88,4 +84,17 @@ export async function githubSponsorsToMarkdown({
 			`\t\t\t\t</a>`,
 		].join("\n");
 	}
+}
+
+async function getAuthFromEnvironment() {
+	const result = await getGitHubAuthToken();
+
+	if (!result.succeeded) {
+		throw new Error(
+			`Please provide an auth token (process.env.GH_TOKEN or gh auth login).`,
+			{ cause: result.error },
+		);
+	}
+
+	return result.token;
 }

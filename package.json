@@ -37,7 +37,8 @@
 		"*": "prettier --ignore-unknown --write"
 	},
 	"dependencies": {
-		"@octokit/graphql": "^9.0.0"
+		"@octokit/graphql": "^9.0.0",
+		"get-github-auth-token": "^0.2.0"
 	},
 	"devDependencies": {
 		"@eslint-community/eslint-plugin-eslint-comments": "4.7.0",
