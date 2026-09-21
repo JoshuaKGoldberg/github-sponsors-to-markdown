@@ -1,5 +1,15 @@
 # Changelog
 
+# [0.3.0](https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/compare/0.2.3...0.3.0) (2026-09-21)
+
+### Bug Fixes
+
+- use npm trusted publishing for releases ([e558fe4](https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/commit/e558fe458390fe7e55d16b80fd3e793e97e8227c))
+
+### Features
+
+- use get-github-auth-token for auth ([#1145](https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/issues/1145)) ([b04ed02](https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/commit/b04ed02b7106af32bbf4d9bd54d88a8dc527ab69)), closes [#748](https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/issues/748)
+
 ## [0.2.3](https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/compare/0.2.2...0.2.3) (2025-05-27)
 
 ### Bug Fixes
