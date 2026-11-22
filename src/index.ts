@@ -1,11 +1,11 @@
 import { getGitHubAuthToken } from "get-github-auth-token";
 
-import { getSponsorshipsAsMaintainer } from "./getSponsorshipsAsMaintainer.js";
+import { getSponsorshipsAsMaintainer } from "./getSponsorshipsAsMaintainer.ts";
 import {
 	groupSponsorships,
 	SponsorshipDescription,
-} from "./groupSponsorships.js";
-import { defaultOptions, GithubSponsorsToMarkdownOptions } from "./options.js";
+} from "./groupSponsorships.ts";
+import { defaultOptions, GithubSponsorsToMarkdownOptions } from "./options.ts";
 
 export async function githubSponsorsToMarkdown({
 	auth: authOption,
@@ -37,7 +37,7 @@ export async function githubSponsorsToMarkdown({
 	);
 
 	const tierGroups = groupSponsorships(sponsorshipsSorted, tiersSorted);
-	const width = `${Math.floor(100 / Object.keys(tierGroups).length)}%`;
+	const width = `${String(Math.floor(100 / Object.keys(tierGroups).length))}%`;
 
 	const tierGroupsSorted = Object.fromEntries(
 		Object.entries(tierGroups).sort(
@@ -80,7 +80,7 @@ export async function githubSponsorsToMarkdown({
 
 		return [
 			`\t\t\t\t<a href="${url}">`,
-			`\t\t\t\t\t<img alt="${name}" height="${tier.size}px" src="${url}.png?size=${tier.size}" width="${tier.size}px" />`,
+			`\t\t\t\t\t<img alt="${name}" height="${String(tier.size)}px" src="${url}.png?size=${String(tier.size)}" width="${String(tier.size)}px" />`,
 			`\t\t\t\t</a>`,
 		].join("\n");
 	}

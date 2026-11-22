@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-import { githubSponsorsToMarkdown } from "../lib/index.js";
+import { githubSponsorsToMarkdown } from "../dist/index.js";
 
 console.log(await githubSponsorsToMarkdown());

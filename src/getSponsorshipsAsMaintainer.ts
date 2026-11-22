@@ -1,6 +1,6 @@
 import { graphql } from "@octokit/graphql";
 
-import { Logger } from "./types.js";
+import { Logger } from "./types.ts";
 
 export interface SponsorshipNode {
 	isOneTimePayment: boolean;

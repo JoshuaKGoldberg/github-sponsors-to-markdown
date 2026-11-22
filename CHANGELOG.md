@@ -1,6 +1,6 @@
 # Changelog
 
-# [0.3.0](https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/compare/0.2.3...0.3.0) (2026-09-21)
+## [0.3.0](https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/compare/0.2.3...0.3.0) (2026-09-21)
 
 ### Bug Fixes
 
@@ -28,7 +28,7 @@
 
 - allow auth option to defualt to process.env.GH_TOKEN ([ceea5c1](https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/commit/ceea5c140bce661214918a964d8573d5a729bf15))
 
-# [0.2.0](https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/compare/0.1.1...0.2.0) (2023-12-21)
+## [0.2.0](https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/compare/0.1.1...0.2.0) (2023-12-21)
 
 ### Bug Fixes
 

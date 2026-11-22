@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 
-import { getSponsorshipsAsMaintainer } from "./getSponsorshipsAsMaintainer.js";
+import { getSponsorshipsAsMaintainer } from "./getSponsorshipsAsMaintainer.ts";
 
 const mockGraphql = vi.fn();
 
@@ -11,7 +11,7 @@ vi.mock("@octokit/graphql", () => ({
 const auth = "abc123";
 const node = { id: "def456", tier: { id: "ghi789", monthlyPriceInDollars: 1 } };
 
-describe("getSponsorshipsAsMaintainer", () => {
+describe(getSponsorshipsAsMaintainer, () => {
 	it("queries under the login as a user when login is provided", async () => {
 		const login = "test-login";
 		mockGraphql.mockResolvedValue({
@@ -158,12 +158,11 @@ describe("getSponsorshipsAsMaintainer", () => {
 		});
 
 		await expect(
-			async () =>
-				await getSponsorshipsAsMaintainer({
-					auth,
-					logger: undefined,
-					login: undefined,
-				}),
+			getSponsorshipsAsMaintainer({
+				auth,
+				logger: undefined,
+				login: undefined,
+			}),
 		).rejects.toMatchInlineSnapshot(
 			"[Error: Sponsorship data seems to be missing. Do you have the right token permissions?]",
 		);

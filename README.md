@@ -46,9 +46,7 @@ node build.js
 `githubSponsorsToMarkdown` can be optionally be provided an options object.
 
 ```ts
-await githubSponsorsToMarkdown({
-	/* ... */
-});
+await githubSponsorsToMarkdown({/* ... */});
 ```
 
 ```ts
@@ -148,7 +146,6 @@ Thanks! 💰
 <!-- spellchecker: disable -->
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
 <table>
   <tbody>
     <tr>
@@ -157,10 +154,9 @@ Thanks! 💰
   </tbody>
 </table>
 
-<!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 <!-- spellchecker: enable -->
 
-> 💝 This package was templated with [`create-typescript-app`](https://github.com/JoshuaKGoldberg/create-typescript-app) using the [Bingo engine](https://create.bingo).
+> 💝 This package was templated with [`create-typescript-app`](https://github.com/JoshuaKGoldberg/create-typescript-app) using the [Bingo framework](https://create.bingo).
