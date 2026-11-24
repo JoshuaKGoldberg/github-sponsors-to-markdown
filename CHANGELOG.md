@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.3.1](https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/compare/0.3.0...0.3.1) (2026-11-24)
+
+### Bug Fixes
+
+- bump to create-typescript-app@2.87.18 ([#1147](https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/issues/1147)) ([e2732de](https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/commit/e2732decc7b5fc693cb4ca2e7073f1bb8dcb8477)), closes [#1146](https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/issues/1146)
+
 ## [0.3.0](https://github.com/JoshuaKGoldberg/github-sponsors-to-markdown/compare/0.2.3...0.3.0) (2026-09-21)
 
 ### Bug Fixes
