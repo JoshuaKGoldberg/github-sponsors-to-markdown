@@ -1,11 +1,11 @@
 import { getGitHubAuthToken } from "get-github-auth-token";
 
-import { getSponsorshipsAsMaintainer } from "./getSponsorshipsAsMaintainer.js";
+import { getSponsorshipsAsMaintainer } from "./getSponsorshipsAsMaintainer.ts";
 import {
 	groupSponsorships,
 	SponsorshipDescription,
-} from "./groupSponsorships.js";
-import { defaultOptions, GithubSponsorsToMarkdownOptions } from "./options.js";
+} from "./groupSponsorships.ts";
+import { defaultOptions, GithubSponsorsToMarkdownOptions } from "./options.ts";
 
 export async function githubSponsorsToMarkdown({
 	auth: authOption,

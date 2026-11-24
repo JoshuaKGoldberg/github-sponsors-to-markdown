@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { githubSponsorsToMarkdown } from "./index.js";
+import { githubSponsorsToMarkdown } from "./index.ts";
 
 const mockGetGitHubAuthToken = vi.fn();
 
@@ -12,13 +12,13 @@ vi.mock("get-github-auth-token", () => ({
 
 const mockGetSponsorshipsAsMaintainer = vi.fn();
 
-vi.mock("./getSponsorshipsAsMaintainer.js", () => ({
+vi.mock("./getSponsorshipsAsMaintainer.ts", () => ({
 	get getSponsorshipsAsMaintainer() {
 		return mockGetSponsorshipsAsMaintainer;
 	},
 }));
 
-describe("githubSponsorsToMarkdown", () => {
+describe(githubSponsorsToMarkdown, () => {
 	beforeEach(() => {
 		mockGetSponsorshipsAsMaintainer.mockResolvedValue([]);
 	});

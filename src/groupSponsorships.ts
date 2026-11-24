@@ -1,5 +1,5 @@
-import { SponsorshipNode } from "./getSponsorshipsAsMaintainer.js";
-import { SponsorshipTier } from "./options.js";
+import { SponsorshipNode } from "./getSponsorshipsAsMaintainer.ts";
+import { SponsorshipTier } from "./options.ts";
 
 export interface SponsorshipDescription {
 	sponsorship: SponsorshipNode;

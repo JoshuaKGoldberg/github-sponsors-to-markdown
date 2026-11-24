@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 
-import { groupSponsorships } from "./groupSponsorships.js";
+import { groupSponsorships } from "./groupSponsorships.ts";
 
-describe("groupSponsorships", () => {
+describe(groupSponsorships, () => {
 	it("groups sponsorships into an object", () => {
 		const sponsorship = {
 			isOneTimePayment: false,
